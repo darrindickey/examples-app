@@ -171,3 +171,25 @@ header {
 .skills-list h5 {
   font-style: italic;
 }
+
+.portfolio-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-row-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.project-card {
+  border: 1px solid black;
+  border-radius: 0.2em;
+  padding: 1em;
+  margin: 1em;
+}
+
+.portfolio-row-wrapper a {
+  text-decoration: none;
+  color: black;
+}

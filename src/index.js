@@ -1,14 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './store/configureStore';
 import './fonts/Raleway/Raleway-VariableFont_wght.ttf';
 import './fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf';
+import './index.css';
 
-ReactDOM.render(
+render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
