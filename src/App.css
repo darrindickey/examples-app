@@ -28,10 +28,6 @@
   color: #61dafb;
 }
 
-body {
-  background-color: #777e87;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -41,18 +37,30 @@ body {
   }
 }
 
-header {
+#root {
   display: flex;
-  flex-direction: row;
+  flex-flow: column;
+  height: 100%;
+}
+
+header {
   justify-content: space-between;
   padding: 0.5em 2em;
   background-color: #c2c9d2;
+  flex: 1 1 auto;
 }
 
 .page-body {
   padding: 0 2em;
-  display: flex;
-  flex-direction: column;
+  flex: 0 1 100%;
+}
+
+.body-header {
+  flex: 1 1 auto;
+}
+
+.home, .portfolio {
+  background-color: #777e87;
 }
 
 .logo-container {
@@ -192,4 +200,92 @@ header {
 .portfolio-row-wrapper a {
   text-decoration: none;
   color: black;
+}
+
+section.body-content {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+}
+
+.main-weather {
+  flex-flow: column;
+  padding: 0 0 3em 0;
+}
+
+.current-weather {
+  border: 1px solid #939393;
+  padding: 0 3em 2em;
+  border-radius: 0.5em;
+}
+
+.forecast {
+  justify-content: space-around;
+}
+
+@media only screen and (max-width: 1024px) {
+  .forecast {
+    flex-flow: wrap;
+  }
+
+  .weather-card {
+    border-radius: 0.25em;
+    border: 1px solid #666666;
+    padding: 1.5em 1em;
+    margin: 1em 0;
+    align-self: center;
+  }
+}
+
+.no-location {
+  flex: 1 0 100%;
+}
+
+.no-location-greeting {
+  text-align: center;
+  font-family: RalewayBold;
+  font-size: 3.5em;
+  margin: 0.5em 0;
+}
+
+.location-greeting-body {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.location-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-form input {
+  border: 1px solid #696969;
+  border-radius: 0.25em;
+  font-size: 1.5em;
+  display: flex;
+  margin: 2em auto 1em;
+  padding: 0.25em 0.5em;
+  width: 40%;
+}
+
+.location-form .submit-button {
+  padding: 0.25em;
+  font-size: 1.25em;
+  width: 20%;
+  align-self: center;
+  background-color: #ef9a44;
+  color: #fff;
+  border: 1px solid #696969;
+  border-radius: 0.25em;
+  font-weight: 800;
+}
+
+.weather-location-wrapper {
+  text-align: center;
+  margin: 1em 0 2em;
+}
+
+.weather-location {
+  font-family: RalewayBold;
+  font-size: 1.5em;
 }

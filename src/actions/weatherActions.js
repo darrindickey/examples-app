@@ -1,12 +1,11 @@
-import { GET_WEATHER_REQUEST, GET_WEATHER_DATA_SUCCESS, GET_WEATHER_DATA_ERROR } from './actionTypes';
+import { 
+  GET_WEATHER_DATA_SUCCESS,
+  GET_WEATHER_DATA_ERROR,
+  GET_LOCATION,
+  GET_GEOCODE_DATA_SUCCESS,
+  GET_GEOCODE_DATA_ERROR
+} from './actionTypes';
 import axios from 'axios';
-// import * as actionTypes from './actionTypes';
-
-const getWeatherRequest = (data) => {
-  return {
-    type: GET_WEATHER_REQUEST,
-  }
-}
 
 const getWeatherSuccess = (weather) => {
   return {
@@ -22,26 +21,82 @@ const getWeatherError = (error) => {
   }
 }
 
-export const getWeather = () => {
-  let key = process.env.REACT_APP_WEATHER_API_KEY;
-  // let exclude = '';
-  // let part = '';
-  let units = 'imperial';
-  let lat = '35.851234';
-  let lon = '-86.452170';
-  let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + key + "&units=" + units
+const getGeocodeSuccess = (geolocation) => {
+  return {
+    type: GET_GEOCODE_DATA_SUCCESS,
+    payload: geolocation
+  }
+}
 
+const getGeocodeError = (error) => {
+  return {
+    type: GET_GEOCODE_DATA_ERROR,
+    payload: error
+  }
+}
+
+export const getLocationAction = (position) => {
+  return dispatch => {
+    dispatch({
+      type: GET_LOCATION,
+      payload: position
+    });
+  }
+}
+
+export const getBrowserPosition = () => {
+  return dispatch => {
+    const geolocation = navigator.geolocation;
+    geolocation.getCurrentPosition((position) => {
+      dispatch({
+        type: GET_LOCATION,
+        payload: position
+      });
+    });
+  }
+};
+
+export const getWeather = (lat,lon) => {
+  const key = process.env.REACT_APP_WEATHER_API_KEY;
+
+  let units = 'imperial';
+  if (!lat || !lon) {
+    lat = '35.851234';
+  lon = '-86.452170';
+  }
+  let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + key + "&units=" + units;
   return (dispatch) => {
     axios.get(url)
       .then(response => {
-        dispatch(getWeatherRequest(response))
-        const weather = response.data
+        const weather = response.data;
+
         dispatch(getWeatherSuccess(weather));
       })
       .catch(error => {
         console.log('api error', error)
-        const errorMsg = error.message
+        const errorMsg = error.message;
         dispatch(getWeatherError(errorMsg));
       })
   }
+}
+
+export const geocodeLocation = (location) => {
+  const key = process.env.REACT_APP_MAPQUEST_API_KEY;
+
+  let url = 'http://open.mapquestapi.com/geocoding/v1/address?key=' + key + '&location=' + location;
+
+  return (dispatch) => {
+    
+    axios.get(url)
+      .then(response => {
+        const geolocation = response.data;
+        dispatch(getGeocodeSuccess(geolocation));
+      })
+      .catch(error => {
+        console.log('api error', error)
+        const errorMsg = error.message;
+        dispatch(getGeocodeError(errorMsg));
+      })
+  }
+
 }

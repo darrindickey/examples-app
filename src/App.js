@@ -14,8 +14,7 @@ import {
 export default function BasicExample() {
   return (
     <Router>
-      <div>
-        <Header />
+      <Header />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -27,7 +26,6 @@ export default function BasicExample() {
             <WeatherApp />
           </Route>
         </Switch>
-      </div>
     </Router>
   );
 }
