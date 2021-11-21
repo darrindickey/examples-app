@@ -42,7 +42,7 @@ function WeatherApp({geocodeLocationResponse, weatherData, currentWeather, daily
       })
       dispatch(getWeather(parsedGeocodeLocation.lat, parsedGeocodeLocation.lng));
     }
-  }, [geocodeLocationResponse])
+  }, [geocodeLocationResponse, dispatch])
 
   const onChange = (event) => {
     setLocation(event.target.value);
@@ -84,7 +84,7 @@ function WeatherApp({geocodeLocationResponse, weatherData, currentWeather, daily
           <div className="day">{dataFormatter.formatDayFromUnix(dayWeather.dt)}</div>
           <img src={forecastIconUrl} alt="forecast icon" />
           <div className="temp">High: {Math.round(dayWeather.temp.max)}</div>
-          <div className="temp">High: {Math.round(dayWeather.temp.min)}</div>
+          <div className="temp">Low: {Math.round(dayWeather.temp.min)}</div>
         </div>
       )
     })
